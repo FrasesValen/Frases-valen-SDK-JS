@@ -1,15 +1,40 @@
-how to use? EASY
+## FrasesValen JS wrapper
+---
+> **Links:** [📕 Api Docs](https://frasesvalen.antonioma.com/api) | [🔐 Get a token](https://frasesvalen.antonioma.com/account/dev) | [👨‍💻 Test server](https://frasesvalen-test.antonioma.com/account/dev)
 
-getPhrase(id INTEGER) 
+> ## ⚠ To test things [use the test server](#use-a-different-server).
 
-If you don't put any id it will give you a random word
+## Get a phrase
+```js
+const { FrasesValen } = require('./dist/index');
+const fv = new FrasesValen();
 
-createClip(phrase STRING, clipId STRING, suggested_by STRING)
+// Get a random phrase
+fv.getPhrase().then(console.log);
+// Get phrase by id
+fv.getPhrase(1).then(console.log);
+```
+## Create a phrase (suggest)
+```js
+const { FrasesValen, Phrase } = require('./dist/index');
+const fv = new FrasesValen('0|hEtDgFZZfk2c8aRrADT8HF9Yu3qDJqmgCnzG86NVsvFLjKqhVJqp4natdYeYhqgW'); //To use this endpoint you need a token.
 
-createVideo(phrase STRING, videoId STRING, video_start INTEGER, video_end INTEGER, suggested_by STRING)
+let phrase = new Phrase({phrase: 'example'});
+fv.createPhrase(phrase);
+```
 
-In video_start and video_end you have to put it in seconds
+## Get current authenticated user
+> This endpoint is useful to test if your token is valid.
+```js
+const { FrasesValen } = require('./dist/index');
+const fv = new FrasesValen('0|hEtDgFZZfk2c8aRrADT8HF9Yu3qDJqmgCnzG86NVsvFLjKqhVJqp4natdYeYhqgW'); //To use this endpoint you need a token.
 
-npm https://www.npmjs.com/package/npm-fvsdk-radsi
+fv.getMe().then(console.log);
+```
 
-more info in https://frasesvalen.antonioma.com/api/docs
+## Use a different server
+```js
+const { FrasesValen } = require('./dist/index');
+const fv = new FrasesValen('0|hEtDgFZZfk2c8aRrADT8HF9Yu3qDJqmgCnzG86NVsvFLjKqhVJqp4natdYeYhqgW', {baseURL: 'https://frasesvalen-test.antonioma.com/api/'}); // This is the url of the test server, you can test everything you want on there.
+```
+> [🔑 Get a token on the test server](https://frasesvalen-test.antonioma.com/account/dev)
