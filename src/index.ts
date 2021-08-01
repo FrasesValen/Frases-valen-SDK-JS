@@ -22,7 +22,7 @@ class FrasesValenApi {
     public baseURL: string;
     public axios: AxiosInstance;
 
-    async getPhrase(id: Number | undefined){
+    async getPhrase(id?: Number){
         return new Phrase(await this.axios.get(`phrase/${id ? id : 'random'}`).then(r => r.data));
     }
 
